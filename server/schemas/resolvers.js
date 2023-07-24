@@ -38,19 +38,25 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, { thoughtText, thoughtAuthor }) => {
-            const thought = await Book.create({ thoughtText, thoughtAuthor });
-
-            await User.findOneAndUpdate(
-                { username: thoughtAuthor },
-                { $addToSet: { thoughts: thought._id } }
+        saveBook: async (parent, { userId, authors, description, bookId, image, link, title }) => {
+            return User.findOneAndUpdate(
+              { _id: userId },
+              {
+                $addToSet: { savedBooks: {authors, description, bookId, image, link, title} },
+              },
+              {
+                new: true,
+                runValidators: true,
+              }
             );
-
-            return book;
         },
-        deleteBook: async (parent, { bookId }) => {
-            return Book.findOneAndDelete({ _id: bookId });
-        },
+        deleteBook: async (parent, { userId, bookId }) => {
+            return User.findOneAndUpdate(
+              { _id: userId },
+              { $pull: { savedBooks: { _id: bookId } } },
+              { new: true }
+            );
+          },
     },
 };
 
