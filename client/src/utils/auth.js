@@ -1,5 +1,3 @@
-// Update the auth middleware function to work with the GraphQL API
-
 // use this to decode a token and get the user's information out of it
 import decode from 'jwt-decode';
 
