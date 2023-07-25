@@ -3,6 +3,8 @@
 // do we need password?? in User
 const { gql } = require('apollo-server-express')
 
+// authors is an object from the api
+
 const typeDefs = gql`
     type User {
         _id: ID
@@ -18,7 +20,7 @@ const typeDefs = gql`
         authors: [String]
         description: String
         title: String
-        image:
+        image: String
         link: String
     }
 
@@ -39,10 +41,10 @@ const typeDefs = gql`
             authors: [String]
             description: String
             title: String
-            image:
+            image: String
             link: String
         ): User
-        removeBook(bookId: ID!): User
+        removeBook(userId: ID!, bookId: ID!): User
     }
 `;
 
