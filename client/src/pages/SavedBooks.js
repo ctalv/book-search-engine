@@ -67,7 +67,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const [deleteBook, {error} ] = useMutation(REMOVE_BOOK);
+      const [response, {error} ] = useMutation(REMOVE_BOOK);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
