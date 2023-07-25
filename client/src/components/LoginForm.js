@@ -1,11 +1,13 @@
 // Replace the loginUser() functionality imported from the API file with the 
 // LOGIN_USER mutation functionality
+import { useMutation } from '@apollo/client';
 
 // see SignupForm.js for comments
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { loginUser } from '../utils/API';
+// import { loginUser } from '../utils/API';
+import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -29,7 +31,8 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
+      // const response = await loginUser(userFormData);
+      const [response, {error} ] = useMutation(LOGIN_USERs)
 
       if (!response.ok) {
         throw new Error('something went wrong!');
