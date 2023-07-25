@@ -38,11 +38,11 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, { userId, authors, description, bookId, image, link, title }) => {
+        saveBook: async (parent, { userId, bookId, authors, description,  title, image, link }) => {
             return User.findOneAndUpdate(
               { _id: userId },
               {
-                $addToSet: { savedBooks: {authors, description, bookId, image, link, title} },
+                $addToSet: { savedBooks: {authors, bookId, description,  title, image, link } },
               },
               {
                 new: true,
@@ -50,7 +50,7 @@ const resolvers = {
               }
             );
         },
-        deleteBook: async (parent, { userId, bookId }) => {
+        removeBook: async (parent, { userId, bookId }) => {
             return User.findOneAndUpdate(
               { _id: userId },
               { $pull: { savedBooks: { _id: bookId } } },
