@@ -38,7 +38,9 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const Auth = new AuthService()
+
+export default Auth;
 
 
 // // Update the auth middleware function to work with the GraphQL API
