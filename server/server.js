@@ -1,8 +1,12 @@
 // Implement the Apollo Server and apply it to the Express server as middleware.
 const express = require('express');
 const path = require('path');
+const mongoose = require("mongoose");
+require("dotenv").config();
+const cors = require("cors");
 const { ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
+
 
 
 const db = require('./config/connection');
@@ -12,6 +16,8 @@ const { typeDefs, resolvers } = require('./schemas');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+app.use(cors());
+
 
 // to add ApolloServer
 const server = new ApolloServer({
@@ -20,7 +26,19 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-app.use(express.urlencoded({ extended: false }));
+mongoose
+  .connect(
+    process.env.MONGODB_CONNECTION_STRING,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("MongoDB has been connected"))
+  .catch((err) => console.log(err));
+
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // if we're in production, serve client/build as static assets
