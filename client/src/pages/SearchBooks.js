@@ -66,7 +66,7 @@ const SearchBooks = () => {
       console.error(err);
     }
   };
-  const [saveBook, {error} ] = useMutation(SAVE_BOOK);
+  const [saveBook ] = useMutation(SAVE_BOOK);
 
 
   // create function to handle saving a book to our database

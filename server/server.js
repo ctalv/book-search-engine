@@ -28,6 +28,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// process.on('uncaughtException', function (err) {
+//   console.log(err);
+// }); 
 // app.use(routes);
 
 // Homepage start and display index.html
