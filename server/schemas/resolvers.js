@@ -42,7 +42,7 @@ const resolvers = {
             return User.findOneAndUpdate(
               { _id: userId },
               {
-                $addToSet: { savedBooks: {authors, bookId, description,  title, image, link } },
+                $addToSet: { savedBooks: {bookId, description,  title, image, link } },
               },
               {
                 new: true,
@@ -53,7 +53,7 @@ const resolvers = {
         removeBook: async (parent, { userId, bookId }) => {
             return User.findOneAndUpdate(
               { _id: userId },
-              { $pull: { savedBooks: { _id: bookId } } },
+              { $pull: { savedBooks: { bookId: bookId } } },
               { new: true }
             );
           },
